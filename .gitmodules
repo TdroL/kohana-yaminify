@@ -1,0 +1,3 @@
+[submodule "classes/vendor/jsmin"]
+	path = classes/vendor/jsmin
+	url = https://github.com/rgrove/jsmin-php.git
