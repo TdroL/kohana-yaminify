@@ -12,9 +12,18 @@ class Url extends Kohana_Url
 
 			$info = pathinfo($path);
 
+			$filename = $info['filename'];
+			$min = '';
+
+			if (substr($filename, -4, 4) == '.min')
+			{
+				$filename = substr($info['filename'], 0, -4);
+				$min = '.min';
+			}
+
 			$file = $info['dirname'].'/'.
-					$info['filename'].'.'.
-					$ctime.'.'.
+					$filename.'.'.
+					$ctime.$min.'.'.
 					$info['extension'];
 		}
 		else
