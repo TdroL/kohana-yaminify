@@ -212,7 +212,7 @@ FileETag None
   # A request for style.123456789.css will instead serve up style.css ("123456789" - timestamp)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.+)\.(\d{8,})(\.min)?\.(js|css|png|jpg|gif)$ $1$3.$4 [L]
+  RewriteRule ^(.+)\.(\d{8,})\.(js|css|png|jpg|gif)$ $1$3.$4 [L]
 
   # Protect application and system files from being viewed
   RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
