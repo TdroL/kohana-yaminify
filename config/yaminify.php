@@ -3,7 +3,7 @@
 return array(
 	// adds message to response if target directory (css/js) is not writable
 	'verbose' => TRUE,
-	// Garbage Collector -- removes old minified files
+	// Garbage collector -- removes old minified files
 	// allowed values: [0.0, 1.0]; 1.0 - always, 0.0 - never
 	'gc' => 1.0,
 	// css settings

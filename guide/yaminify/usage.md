@@ -1,8 +1,7 @@
 # Usage
 
-[todo]
-Instead of `Url::site('style.css')` use `Url::stamp('style.css')` to add timestamp or `Url::stamp('style.min.css')` to add timestamp, minify and cache file.
-Supported types (minify): css, js.
+1. Use `.htaccess` delivered with this module to enable proper file serving (using stamp, see lines 212-215 in `.htaccess`), gzip and headers.
+2. Use Url::stamp() to create links to your styles and scripts.
 
 Example:
 
@@ -11,11 +10,12 @@ Example:
 
 Results:
 
-	<script src="/jquery.123456789.min.js"></script>
-	<link rel="stylesheet" href="/style.123456789.css" />
+	<script src="/jquery.123456789.min.js"></script> <!-- minified and cached -->
+	<link rel="stylesheet" href="/style.123456789.css" /> <!-- nethier minified nor cached -->
 
-If minification is disabled then `.min` will be stripped automaticly from filename:
+If minification is disabled (in config file) then `.min` will be stripped automaticly from filename:
 
+	// yaminify.js.minify == FALSE
 	<script src="<?php echo Url::stamp('jquery.min.js') ?>"></script>
 
 Result:
