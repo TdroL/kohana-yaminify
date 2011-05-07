@@ -7,30 +7,20 @@ if (Kohana::$environment !== Kohana::PRODUCTION)
 
 $config = Kohana::config('yaminify')->as_array();
 
-$css = Arr::get($config, 'css');
+Route::set('yaminify-css', Arr::get($config, 'css.dir').'/<file>',
+	array(
+		'file'       => '.+' // strict: '.+?\.css'
+	))
+	->defaults(array(
+		'controller' => 'yaminify',
+		'action'     => 'css',
+	));
 
-if (Arr::get($css, 'minify'))
-{
-	Route::set('yaminify-css', Arr::get($css, 'dir').'/<file>',
-		array(
-			'file'       => '.+' // strict: '.+?\.css'
-		))
-		->defaults(array(
-			'controller' => 'yaminify',
-			'action'     => 'css',
-		));
-}
-
-$js = Arr::get($config, 'js');
-
-if (Arr::get($js, 'minify'))
-{
-	Route::set('yaminify-js', Arr::get($js, 'dir').'/<file>',
-		array(
-			'file'       => '.+' // strict: '.+?\.js'
-		))
-		->defaults(array(
-			'controller' => 'yaminify',
-			'action'     => 'js',
-		));
-}
+Route::set('yaminify-js', Arr::path($config, 'js.dir').'/<file>',
+	array(
+		'file'       => '.+' // strict: '.+?\.js'
+	))
+	->defaults(array(
+		'controller' => 'yaminify',
+		'action'     => 'js',
+	));
