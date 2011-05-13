@@ -204,11 +204,6 @@ FileETag None
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
-  # Force to include the trailing slash to (non-file) URLs
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/|#(.*))$
-  RewriteRule ^(.*)$ $1/ [R=301,L]
-
   # A request for style.12345678.css, style.r001.css, style.v1.css, style.v1.1.css will instead serve up style.css
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
