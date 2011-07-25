@@ -16,7 +16,7 @@ abstract class Controller_Kohana_Yaminify extends Controller {
 	public function before()
 	{
 		parent::before();
-		$this->_config = Kohana::config('yaminify')->as_array();
+		$this->_config = Kohana::$config->load('yaminify')->as_array();
 
 		$this->_yaminify = new Yaminify();
 	}
@@ -50,12 +50,7 @@ abstract class Controller_Kohana_Yaminify extends Controller {
 			$this->_yaminify->cache($path, $source);
 		}
 
-		$time = file_exists($path) ? filemtime($path) : time();
-		$last_modified = gmdate('D, d M Y H:i:s T', $time);
-		$this->response->headers('Last-Modified', $last_modified);
-
-		$mime = File::mime_by_ext(pathinfo($path, PATHINFO_EXTENSION));
-		$this->response->headers('Content-Type', $mime);
+		$this->set_headers($path, 'css');
 
 		$this->response->body($source);
 	}
@@ -89,14 +84,22 @@ abstract class Controller_Kohana_Yaminify extends Controller {
 			$this->_yaminify->cache($path, $source);
 		}
 
+		$this->set_headers($path, 'js');
+
+		$this->response->body($source);
+	}
+
+	protected function set_headers($path, $default_ext = NULL)
+	{
 		$time = file_exists($path) ? filemtime($path) : time();
 		$last_modified = gmdate('D, d M Y H:i:s T', $time);
 		$this->response->headers('Last-Modified', $last_modified);
 
-		$mime = File::mime_by_ext(pathinfo($path, PATHINFO_EXTENSION));
-		$this->response->headers('Content-Type', $mime);
-
-		$this->response->body($source);
+		if ($mime = File::mime_by_ext(pathinfo($path, PATHINFO_EXTENSION))
+		 OR $mime = File::mime_by_ext($path, $default_ext))
+		{
+			$this->response->headers('Content-Type', $mime);
+		}
 	}
 
 }

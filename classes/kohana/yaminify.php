@@ -20,7 +20,7 @@ abstract class Kohana_Yaminify {
 	}
 
 	public function __construct() {
-		$this->_config = Kohana::config('yaminify')->as_array();
+		$this->_config = Kohana::$config->load('yaminify')->as_array();
 	}
 
 	public function css($path)

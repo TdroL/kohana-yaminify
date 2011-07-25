@@ -47,7 +47,7 @@ class Url extends Kohana_Url
 					$ctime = filectime($file);
 
 					$min = '';
-					$config = Kohana::config('yaminify.'.$info['extension']);
+					$config = Kohana::$config->load('yaminify.'.$info['extension']);
 
 					if (Arr::get($config, 'minify'))
 					{

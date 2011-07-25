@@ -5,7 +5,7 @@ if (Kohana::$environment !== Kohana::PRODUCTION)
 	Kohana::modules(Kohana::modules() + array('userguide' => MODPATH.'userguide'));
 }
 
-$config = Kohana::config('yaminify')->as_array();
+$config = Kohana::$config->load('yaminify')->as_array();
 
 Route::set('yaminify-css', ltrim(Arr::path($config, 'css.dir').'/<file>', '/'),
 	array(
