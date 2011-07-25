@@ -6,6 +6,6 @@
  * @package    Yaminify
  * @category   Base
  * @author     tdroL
- * @license    http://kohanaphp.com/license.html
+ * @license    http://kohanaframework.org/license
  */
 class Yaminify extends Kohana_Yaminify {}

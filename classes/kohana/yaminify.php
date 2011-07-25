@@ -2,10 +2,10 @@
 /**
  * Yaminify - Yet Another (Kohana) Minifier
  *
- * @package	Modulename
+ * @package    Yaminify
  * @category   Base
- * @author	 tdroL
- * @license	http://kohanaphp.com/license.html
+ * @author     tdroL
+ * @license    http://kohanaframework.org/license
  */
 abstract class Kohana_Yaminify {
 
