@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Url extends Kohana_Url
-{
+class Url extends Kohana_Url {
+
 	public static function stamp($path)
 	{
 		$file = DOCROOT.$path;
