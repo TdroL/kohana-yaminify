@@ -1,0 +1,34 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+
+class Kohana_Yaminify_Driver_Yuicompressor extends Yaminify_Driver
+{
+
+	public static function minify_js($source)
+	{
+		if (empty($source))
+		{
+			return $source;
+		}
+
+		require_once 'Minify/YUICompressor.php';
+
+		$options = Arr::get(Yaminify::$config->js, 'options', array());
+
+		return Minify_YUICompressor::minifyJs($source, $options);
+	}
+
+	public static function minify_css($source)
+	{
+		if (empty($source))
+		{
+			return $source;
+		}
+
+		require_once 'Minify/YUICompressor.php';
+
+		$options = Arr::get(Yaminify::$config->css, 'options', array());
+
+		return Minify_YUICompressor::minifyCss($source, $options);
+	}
+
+}
