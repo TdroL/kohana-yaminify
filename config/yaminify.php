@@ -1,7 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
-	'cache_dir' => 'assets/cache', // must be writable and visible to world
+	// Cache directory - must be writable and visible to world
+	'cache_dir' => 'assets/cache',
 	'html' => array(
 		'minify' => TRUE,
 		'driver' => 'default',
@@ -14,8 +15,8 @@ return array(
 			 * 'jsMinifier' => false,
 			 */
 
-			//'cssMinifier' => array('Yaminify_Driver_Default', 'minify_css'),
-			//'jsMinifier'  => array('Yaminify_Driver_Default', 'minify_js')
+			// 'cssMinifier' => array('Yaminify_Driver_Default', 'minify_css'),
+			// 'jsMinifier'  => array('Yaminify_Driver_Default', 'minify_js')
 		)
 	),
 	'css' => array(

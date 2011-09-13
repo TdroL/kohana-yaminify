@@ -40,6 +40,12 @@ class Kohana_Yaminify
 	{
 		$info = pathinfo($file);
 
+		// check if filetype is supported
+		if ( ! isset(Yaminify::$config[$info['extension']]) OR ! Arr::is_array(Yaminify::$config[$info['extension']]))
+		{
+			return Url::site($file);
+		}
+
 		// skip minified or non-existing files
 		if (substr($info['filename'], -4) == '.min' OR ! file_exists(DOCROOT.$file))
 		{

@@ -10,11 +10,11 @@ class Controller_Kohana_Yaminify extends Controller
 		$info = pathinfo($req_file);
 		$ext = $info['extension'];
 
-		// get filename and timestamp
-		$filename = preg_replace('/\.\d+\.(js|css)$/i', '.$1', $req_file);
-		$timestamp = preg_replace('/.+\.(\d+)\.(?:js|css)$/i', '$1', $req_file);
+		// Get filename and timestamp
+		$filename = preg_replace('/\.\d+\.(js|css)$/iD', '.$1', $req_file);
+		$timestamp = preg_replace('/.+\.(\d+)\.(?:js|css)$/iD', '$1', $req_file);
 
-		// get source
+		// Get source
 		$config = Yaminify::$config->{$ext};
 		$dir = Arr::get($config, 'dir');
 		$dir = DOCROOT.(empty($dir) ? '' : (rtrim($dir, '/').'/'));
@@ -28,11 +28,11 @@ class Controller_Kohana_Yaminify extends Controller
 			));
 		}
 
-		// confirm timestamp
+		// Confirm timestamp
 		$file_timestamp = filemtime($file);
 		if ($timestamp != $file_timestamp)
 		{
-			// redirect to correct file
+			// Redirect to correct file
 			$uri = str_ireplace('.'.$timestamp.'.'.$ext, '.'.$file_timestamp.'.'.$ext, $this->request->uri());
 
 			$this->request->redirect($uri);
@@ -41,20 +41,20 @@ class Controller_Kohana_Yaminify extends Controller
 
 		$source = file_get_contents($file);
 
-		// minify
+		// Minify
 		$minified = Yaminify::minify($info['extension'], $source);
 
 		if ( ! Arr::get($config, 'cache'))
 		{
-			// don't save minified source
+			// Don't save minified source
 			$this->response->headers('Content-Type', File::mime_by_ext($info['extension']));
 			$this->response->body($minified);
 			return;
 		}
 
-		// save minified source
+		// Save minified source
 		$cache_dir = Arr::get(Yaminify::$config, 'cache_dir');
-		$cache_dir = DOCROOT.(empty($dir) ? '' : rtrim($cache_dir, '/').'/');
+		$cache_dir = DOCROOT.(empty($dir) ? '' : (rtrim($cache_dir, '/').'/'));
 
 		$cache_file = $cache_dir.$req_file;
 		$info = pathinfo($cache_file);
@@ -67,7 +67,7 @@ class Controller_Kohana_Yaminify extends Controller
 
 		file_put_contents($cache_file, $minified);
 
-		// remove old cached files
+		// Remove old cached files
 		$cache_info = $cache_dir.$filename.'.current';
 
 		if (file_exists($cache_info) AND is_file($cache_info))
@@ -76,7 +76,7 @@ class Controller_Kohana_Yaminify extends Controller
 
 			try
 			{
-				// remove old file
+				// Remove old file
 				unlink($old_cache_file);
 			}
 			catch(Exception $e) {}
