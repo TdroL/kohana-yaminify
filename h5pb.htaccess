@@ -11,7 +11,7 @@
 
 
 ###
-### If you run a webserver other than apache, consider:
+### If you run a webserver other than Apache, consider:
 ### github.com/paulirish/html5-boilerplate-server-configs
 ###
 
@@ -26,11 +26,11 @@
 # Use ChromeFrame if it's installed for a better experience for the poor IE folk
 
 <IfModule mod_headers.c>
-    Header set X-UA-Compatible "IE=Edge,chrome=1"
-    # mod_headers can't match by content-type, but we don't want to send this header on *everything*...
-    <FilesMatch "\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|xpi|safariextz|vcf)$" >
-      Header unset X-UA-Compatible
-    </FilesMatch>
+  Header set X-UA-Compatible "IE=Edge,chrome=1"
+  # mod_headers can't match by content-type, but we don't want to send this header on *everything*...
+  <FilesMatch "\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|xpi|safariextz|vcf)$" >
+    Header unset X-UA-Compatible
+  </FilesMatch>
 </IfModule>
 
 
@@ -56,11 +56,11 @@
 # Alternatively you could only whitelist your
 # subdomains like "subdomain.example.com".
 
-<FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css)$">
-  <IfModule mod_headers.c>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css)$">
     Header set Access-Control-Allow-Origin "*"
-  </IfModule>
-</FilesMatch>
+  </FilesMatch>
+</IfModule>
 
 
 
@@ -475,11 +475,10 @@ AddCharset utf-8 .html .css .js .xml .json .rss .atom
 # Write errors to log file
 # php_flag log_errors On
 
-# Do not display errors in browser (production - Off, development - On)
-# php_flag display_errors Off
+# Do not display errors in browser (production - Off, development - On)php_flag display_errors On
 
 # Do not display startup errors (production - Off, development - On)
-# php_flag display_startup_errors Off
+php_flag display_startup_errors On
 
 # Format errors in plain text
 # Note: Leave this setting 'On' for xdebug's var_dump() output
@@ -508,22 +507,23 @@ AddCharset utf-8 .html .css .js .xml .json .rss .atom
 # ----------------------------------------------------------------------
 # Kohana's .htaccess
 # ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  # Installation directory
+  RewriteBase /
 
-# Installation directory
-RewriteBase /
+  # Protect hidden files from being viewed
+  # <Files .*>
+  #   Order Deny,Allow
+  #   Deny From All
+  # </Files>
 
-# Protect hidden files from being viewed
-# <Files .*>
-#   Order Deny,Allow
-#   Deny From All
-# </Files>
+  # Protect application and system files from being viewed
+  RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
 
-# Protect application and system files from being viewed
-RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
+  # Allow any files or directories that exist to be displayed directly
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
 
-# Allow any files or directories that exist to be displayed directly
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Rewrite all other URLs to index.php/URL
-RewriteRule .* index.php/$0 [PT]
+  # Rewrite all other URLs to index.php/URL
+  RewriteRule .* index.php/$0 [PT]
+</IfModule>
