@@ -42,7 +42,15 @@ class Kohana_Yaminify_Driver_Default extends Yaminify_Driver
 
 		$options = Arr::get(Yaminify::$config->css, 'options', array());
 
-		return Minify_CSS::minify($source, $options);
+		$minified = Minify_CSS::minify($source, $options);
+
+		if (Arr::get($options, 'removeAllLineBreaks'))
+		{
+			// remove all new lines
+			$minified = preg_replace('/(\w)\n(\w)/i', '$1 $2', $minified);
+		}
+
+		return $minified;
 	}
 
 }

@@ -25,6 +25,7 @@ return array(
 		'cache' => TRUE,
 		'driver' => 'default',
 		'options' => array(
+			'removeAllLineBreaks' => TRUE,
 			/**
 			 * CSS:
 			 *
@@ -35,7 +36,7 @@ return array(
 			 * 'prependRelativePath' => null,
 			 * 'symlinks' => array(),
 			 */
-			'preserveComments' => false
+			'preserveComments' => FALSE
 
 			/**
 			 * YUICompressor:
