@@ -14,13 +14,23 @@ class Kohana_Yaminify
 		// load config
 		Yaminify::$config = Kohana::$config->load('yaminify');
 
-		$cache_dir = (empty(Yaminify::$config->cache_dir) ? '' : (rtrim(Yaminify::$config->cache_dir, '/').'/'));
-
-		if ( ! is_dir(DOCROOT.$cache_dir) OR ! is_writable(DOCROOT.$cache_dir))
+		if (Yaminify::$config->css['cache'] OR Yaminify::$config->js['cache'])
 		{
-			throw new HTTP_Exception_500('Cache directory `:dir` doesn\'t exists or is not writable', array(
-				':dir' => $cache_dir
-			));
+			$cache_dir = Yaminify::$config->cache_dir;
+
+			if ( ! empty(Yaminify::$config->cache_dir))
+			{
+				$cache_dir = rtrim($cache_dir, '/').'/';
+			}
+
+			$cache_dir = DOCROOT.$cache_dir;
+
+			if ( ! is_dir($cache_dir) OR ! is_writable($cache_dir))
+			{
+				throw HTTP_Exception::factory(500, 'Cache directory `:dir` doesn\'t exists or is not writable', array(
+					':dir' => Debug::path($cache_dir)
+				));
+			}
 		}
 
 		// find Minify
@@ -28,7 +38,7 @@ class Kohana_Yaminify
 
 		if (empty($path))
 		{
-			throw new HTTP_Exception_500('Run `git submodule update --init --recursive` or download minify (https://github.com/mrclay/minify) into `classes/vendor/minify/` directory.');
+			throw HTTP_Exception::factory(500, 'Run `git submodule update --init --recursive` or download minify (https://github.com/mrclay/minify) into `classes/vendor/minify/` directory.');
 		}
 
 		// set path to Minify
@@ -90,7 +100,7 @@ class Kohana_Yaminify
 
 		if ( ! is_callable($call))
 		{
-			throw new HTTP_Exception_500('Driver `:driver` must implement `:method` method', array(
+			throw HTTP_Exception::factory(500, 'Driver `:driver` must implement `:method` method', array(
 				':driver' => $call[0],
 				':method' => $call[1]
 			));
