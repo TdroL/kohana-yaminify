@@ -14,7 +14,8 @@ class Kohana_Yaminify
 		// load config
 		Yaminify::$config = Kohana::$config->load('yaminify');
 
-		if (Yaminify::$config->css['cache'] OR Yaminify::$config->js['cache'])
+		if (Arr::get(Yaminify::$config->css, 'cache', FALSE)
+		 OR Arr::get(Yaminify::$config->js, 'cache', FALSE))
 		{
 			$cache_dir = Yaminify::$config->cache_dir;
 
