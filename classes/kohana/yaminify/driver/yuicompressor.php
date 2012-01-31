@@ -28,7 +28,7 @@ class Kohana_Yaminify_Driver_Yuicompressor extends Yaminify_Driver
 
 		$options = Arr::get(Yaminify::$config->css, 'options', array());
 
-		$minified = Minify_YUICompressor::minifyCss($source, $options)
+		$minified = Minify_YUICompressor::minifyCss($source, $options);
 
 		if (Arr::get($options, 'removeAllLineBreaks'))
 		{
