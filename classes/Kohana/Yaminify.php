@@ -54,13 +54,13 @@ class Kohana_Yaminify
 		// check if filetype is supported
 		if ( ! isset(Yaminify::$config[$info['extension']]) OR ! Arr::is_array(Yaminify::$config[$info['extension']]))
 		{
-			return Url::site($file);
+			return URL::site($file);
 		}
 
 		// skip minified or non-existing files
 		if (substr($info['filename'], -4) == '.min' OR ! file_exists(DOCROOT.$file))
 		{
-			return Url::site($file);
+			return URL::site($file);
 		}
 
 		// get last modification date
@@ -83,7 +83,7 @@ class Kohana_Yaminify
 
 		}
 
-		return Url::site($cache_dir.$info['filename'].'.'.$timestamp.'.'.$info['extension']);
+		return URL::site($cache_dir.$info['filename'].'.'.$timestamp.'.'.$info['extension']);
 	}
 
 	public static function minify($type, $source)
