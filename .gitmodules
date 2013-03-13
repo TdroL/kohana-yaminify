@@ -1,3 +1,4 @@
-[submodule "classes/vendor/minify"]
+[submodule "vendor/minify"]
 	path = vendor/minify
 	url = https://github.com/mrclay/minify.git
+	ignore = dirty
